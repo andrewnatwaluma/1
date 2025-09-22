@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const voterData = JSON.parse(sessionStorage.getItem('voterData') || '{}');
     displayVoterSummary(voterData);
     
-    // Check if voter has already voted
+    // Check if device has already voted
     checkVotingStatus();
     
     uploadBtn.addEventListener('click', function() {
@@ -84,14 +84,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     async function checkVotingStatus() {
-        const deviceId = getDeviceId();
-        const { data: deviceVote } = await supabase
-            .from('device_votes')
-            .select('*')
-            .eq('device_id', deviceId)
-            .single();
-            
-        if (deviceVote) {
+        // Check device voting status
+        if (hasDeviceVoted()) {
             window.location.href = 'already-voted.html';
             return;
         }
@@ -111,7 +105,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Device Tracking Functions
     function getDeviceId() {
+        // Simple device fingerprint
         return btoa(navigator.userAgent + navigator.language + screen.width + screen.height);
+    }
+    
+    function hasDeviceVoted() {
+        const deviceId = getDeviceId();
+        const votedDevices = JSON.parse(localStorage.getItem('fumi_voted_devices') || '{}');
+        return !!votedDevices[deviceId];
+    }
+    
+    function markDeviceAsVoted() {
+        const deviceId = getDeviceId();
+        const votedDevices = JSON.parse(localStorage.getItem('fumi_voted_devices') || '{}');
+        votedDevices[deviceId] = new Date().toISOString();
+        localStorage.setItem('fumi_voted_devices', JSON.stringify(votedDevices));
     }
 });

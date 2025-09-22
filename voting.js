@@ -43,19 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     async function checkVotingStatus() {
-        const deviceId = getDeviceId();
-        const { data: deviceVote } = await supabase
-            .from('device_votes')
-            .select('*')
-            .eq('device_id', deviceId)
-            .single();
-            
-        if (deviceVote) {
+        // Check device voting status
+        if (hasDeviceVoted()) {
             window.location.href = 'already-voted.html';
             return;
         }
         
-        // Check if current voter has voted
+        // Check if current voter has voted in database
         if (voterData.name) {
             const { data: voter } = await supabase
                 .from('voters')
@@ -149,8 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     async function submitVote() {
-        const deviceId = getDeviceId();
-        
         // Validate all positions are voted
         if (Object.keys(selectedCandidates).length !== positionsOrder.length) {
             alert('Please vote for all positions before submitting.');
@@ -161,12 +153,8 @@ document.addEventListener('DOMContentLoaded', function() {
         submitVoteBtn.disabled = true;
         
         try {
-            // Record device vote first
-            const { error: deviceError } = await supabase
-                .from('device_votes')
-                .insert([{ device_id: deviceId }]);
-                
-            if (deviceError) throw deviceError;
+            // Mark device as voted in localStorage
+            markDeviceAsVoted();
             
             // Get voter ID
             const { data: voter } = await supabase
@@ -195,14 +183,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         candidate_id: candidateId,
                         position_id: position.id,
                         position: positionTitle,
-                        device_id: deviceId
+                        device_id: getDeviceId()
                     }]);
             });
             
             // Submit all votes
             await Promise.all(votePromises);
             
-            // Mark voter as voted
+            // Mark voter as voted in database
             await supabase
                 .from('voters')
                 .update({ has_voted: true })
@@ -219,7 +207,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Device Tracking Functions
     function getDeviceId() {
+        // Simple device fingerprint
         return btoa(navigator.userAgent + navigator.language + screen.width + screen.height);
+    }
+    
+    function hasDeviceVoted() {
+        const deviceId = getDeviceId();
+        const votedDevices = JSON.parse(localStorage.getItem('fumi_voted_devices') || '{}');
+        return !!votedDevices[deviceId];
+    }
+    
+    function markDeviceAsVoted() {
+        const deviceId = getDeviceId();
+        const votedDevices = JSON.parse(localStorage.getItem('fumi_voted_devices') || '{}');
+        votedDevices[deviceId] = new Date().toISOString();
+        localStorage.setItem('fumi_voted_devices', JSON.stringify(votedDevices));
     }
 });

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity Verification - FUMI Voting System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="verification-card">
+            <div class="header">
+                <h1>Identity Verification</h1>
+                <p>Upload your provisional license for verification</p>
+            </div>
+            
+            <div class="voter-summary">
+                <h3>Voter Information</h3>
+                <div id="voterSummary" class="details-grid">
+                    <!-- Voter details will be populated from previous page -->
+                </div>
+            </div>
+            
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📷</div>
+                    <h4>Upload Provisional License</h4>
+                    <p>Take a clear photo of your provisional license</p>
+                    <input type="file" id="licenseUpload" accept="image/*" capture="camera" style="display: none;">
+                    <button type="button" id="uploadBtn" class="btn-primary">Take Photo/Upload</button>
+                </div>
+                
+                <div id="previewSection" class="preview-section" style="display: none;">
+                    <h4>Photo Preview</h4>
+                    <div id="imagePreview" class="image-preview"></div>
+                    <div class="preview-actions">
+                        <button type="button" id="retakeBtn" class="btn-secondary">Retake Photo</button>
+                        <button type="button" id="proceedToVoteBtn" class="btn-success">Looks Good - Proceed to Vote</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="verification-note">
+                <p><strong>Note:</strong> This verification is for identity confirmation only. Your license photo will not be stored.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="supabase-config.js"></script>
+    <script src="license-upload.js"></script>
+</body>
+</html>

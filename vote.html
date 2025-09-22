@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cast Your Vote - FUMI Voting System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="voting-card">
+            <div class="header">
+                <h1>FUMI Interns Election 2024</h1>
+                <p>Cast your vote for each position</p>
+            </div>
+            
+            <div class="voter-info">
+                <h3>Voter: <span id="currentVoterName"></span></h3>
+            </div>
+            
+            <form id="ballotForm">
+                <div id="positionsContainer">
+                    <!-- Positions will be loaded dynamically in exact order -->
+                </div>
+                
+                <div class="voting-actions">
+                    <button type="button" id="submitVote" class="btn-success" disabled>Submit Your Vote</button>
+                    <div id="voteProgress" class="progress-info">
+                        <span id="progressText">0/12 positions completed</span>
+                    </div>
+                </div>
+            </form>
+            
+            <div id="loading" class="loading" style="display: none;">
+                <p>Loading ballot...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="supabase-config.js"></script>
+    <script src="voting.js"></script>
+</body>
+</html>

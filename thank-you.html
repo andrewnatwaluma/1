@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Voting - FUMI Voting System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="thank-you-card">
+            <div class="success-icon">✅</div>
+            <h1>Thank You for Voting!</h1>
+            <p>Your vote has been successfully recorded in the FUMI Interns Election 2024.</p>
+            
+            <div class="success-details">
+                <p><strong>Voting Completed:</strong> <span id="voteTimestamp"></span></p>
+                <p><strong>Device:</strong> This device has been marked as voted</p>
+            </div>
+            
+            <div class="next-steps">
+                <h3>What happens next?</h3>
+                <ul>
+                    <li>Results will be announced after the voting period ends</li>
+                    <li>You can view live results (if enabled by admin)</li>
+                    <li>This device cannot be used to vote again</li>
+                </ul>
+            </div>
+            
+            <div class="action-buttons">
+                <button onclick="viewResults()" class="btn-primary">View Live Results</button>
+                <button onclick="closeWindow()" class="btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Display vote timestamp
+        document.getElementById('voteTimestamp').textContent = new Date().toLocaleString();
+        
+        function viewResults() {
+            window.open('results.html', '_blank');
+        }
+        
+        function closeWindow() {
+            window.close();
+        }
+    </script>
+</body>
+</html>

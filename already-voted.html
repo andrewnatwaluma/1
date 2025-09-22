@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Already Voted - FUMI Voting System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="blocked-card">
+            <div class="warning-icon">⚠️</div>
+            <h1>Access Restricted</h1>
+            <p>This device has already been used to vote in the FUMI Interns Election 2024.</p>
+            
+            <div class="blocked-info">
+                <p><strong>Reason:</strong> One vote per device restriction</p>
+                <p><strong>Status:</strong> Voting completed</p>
+                <p><strong>Note:</strong> Each device can only be used once to maintain election integrity</p>
+            </div>
+            
+            <div class="contact-info">
+                <h3>If this is an error:</h3>
+                <p>Please contact the election committee for assistance.</p>
+                <p>Email: election@fumi.org | Phone: +256-XXX-XXXXXX</p>
+            </div>
+            
+            <div class="action-buttons">
+                <button onclick="viewResults()" class="btn-primary">View Results</button>
+                <button onclick="goHome()" class="btn-secondary">Return Home</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function viewResults() {
+            window.open('results.html', '_blank');
+        }
+        
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

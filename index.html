@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUMI Voting System - Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="header">
+                <h1>FUMI Voting System</h1>
+                <p>Interns Election 2024</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <label for="voterName">Enter Your Full Name:</label>
+                    <input type="text" id="voterName" placeholder="e.g., Dr. John Smith" required>
+                </div>
+                <button type="submit" id="loginBtn" class="btn-primary">Verify & Continue</button>
+            </form>
+            
+            <div id="loading" class="loading" style="display: none;">
+                <p>Verifying your details...</p>
+            </div>
+            
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            
+            <!-- Voter Details Display (hidden initially) -->
+            <div id="voterDetails" class="voter-details" style="display: none;">
+                <h3>Voter Verification</h3>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <label>Name:</label>
+                        <span id="detailName"></span>
+                    </div>
+                    <div class="detail-item">
+                        <label>University:</label>
+                        <span id="detailUniversity"></span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Qualification:</label>
+                        <span id="detailQualification"></span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Nationality:</label>
+                        <span id="detailNationality"></span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Completion Year:</label>
+                        <span id="detailCompletionYear"></span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Internship Center:</label>
+                        <span id="detailInternshipCenter"></span>
+                    </div>
+                </div>
+                <button id="proceedToLicense" class="btn-success">Proceed to Identity Verification</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>
